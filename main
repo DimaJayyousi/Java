@@ -1,0 +1,252 @@
+    import javafx.application.Application;
+	import javafx.geometry.Pos;
+	import javafx.scene.Scene;
+    import javafx.scene.control.Alert.AlertType;
+    import javafx.scene.control.Button;
+	import javafx.scene.control.CheckBox;
+	import javafx.scene.control.Label;
+	import javafx.scene.control.RadioButton;
+	import javafx.scene.control.TextField;
+	import javafx.scene.control.ToggleGroup;
+	import javafx.scene.layout.GridPane;
+	import javafx.scene.layout.VBox;
+	import javafx.scene.paint.Color;
+	import javafx.scene.shape.Arc;
+	import javafx.scene.shape.ArcType;
+	import javafx.scene.shape.Circle;
+	import javafx.scene.shape.Polygon;
+	import javafx.scene.shape.Rectangle;
+	import javafx.stage.Stage;
+	import javafx.scene.control.Alert;
+
+
+public class Dima0229783 extends Application  {
+	public static void main(String[] args)  {
+			launch(args);
+				}
+	int number;
+	public CheckBox  ch1 ;
+	public CheckBox  ch2 ;
+	public CheckBox  ch3 ;
+	public CheckBox  ch4;
+	
+	@Override
+	public void start(Stage ps)  { // stage 1 Primary 
+		
+	//the first question 	
+	Label textl = new Label ( "Please enter the maximum allowance \n of selection between (1 and 4):");
+	TextField text = new TextField ();
+	GridPane p = new GridPane();
+	p.setVgap(5);
+	p.setAlignment(Pos.CENTER);
+	p.add(textl,0 , 0);
+	p.add(text,0,1);
+
+	//Radio button 
+	Button b = new Button ("Draw");
+	RadioButton r1 = new RadioButton ("Circle");
+	RadioButton r2 = new RadioButton ("Rectangle");
+	RadioButton r3 = new RadioButton ("Arc");
+	RadioButton r4 = new RadioButton ("Polygon");
+	ToggleGroup tg = new ToggleGroup();// this make the radio select one
+	r1.setToggleGroup(tg);
+	r2.setToggleGroup(tg);
+	r3.setToggleGroup(tg);
+	r4.setToggleGroup(tg);
+	VBox v1 = new VBox (r1,r2,r3,r4,b);
+	v1.setAlignment(Pos.TOP_LEFT);
+	v1.setVisible(false);
+
+
+	//CheackBox 
+	Button b1 = new Button ("Draw");
+	  ch1 = new CheckBox ("Circle");
+	 ch2 = new CheckBox ("Rectangle");
+	 ch3 = new CheckBox ("Arc");
+	 ch4 = new CheckBox ("Polygon");
+	VBox v2 = new VBox(ch1,ch2,ch3,ch4,b1);
+	v2.setAlignment(Pos.TOP_LEFT);
+	v2.setVisible(false);
+
+	//number of the max allowance
+	text.setOnAction(e->{
+		 number = Integer.valueOf(text.getText()); 
+		if (number == 1 ) {
+			v1.setVisible(true);
+		}else if (number <= 4 && number > 1)
+			v2.setVisible(true);
+		else 
+			showAlert("Please enter a number between 1 and 4 ");
+	});
+
+
+
+	//main pane Scene one >>>>
+	GridPane p1 =new GridPane ();
+	p1.setAlignment(Pos.CENTER);
+	p1.add(p, 4, 50);
+	p1.add(v1, 4, 70); 
+	p1.add(v2, 4, 70);
+	//p1.setVgap(1);
+	p1.setAlignment(Pos.CENTER);
+	Scene s1 = new Scene (p1,400,300); // Scene 1 Primary 
+
+	//Drawing : 
+	Arc arcd = new Arc(4, 30, 100.0f, 100, 30, 60); 
+	//center x ,center y , radios x , radios y ,length 
+	arcd.setType(ArcType.ROUND);
+	Rectangle re = new Rectangle(50,50,70,100) ;
+	Circle c =new Circle (50,50,70);
+	Polygon po=new Polygon (300, 100, 450, 200, 300, 300);
+
+
+	//Arc draw 
+	GridPane a = new GridPane ();
+	Button color = new Button ("change color");
+	a.setAlignment(Pos.CENTER);
+	a.add(arcd, 4, 10);
+	a.add(color, 4, 20);
+	a.setVgap(2);
+	Scene arc= new Scene (a,400,300); // Scene 2 
+	Stage sarc = new Stage (); // Stage 2 
+	sarc.setScene(arc);
+	sarc.setTitle("Arc");
+
+	//Rectangle draw 
+	GridPane r = new GridPane ();
+	Button color1 = new Button ("Change color ");
+	r.setAlignment(Pos.CENTER);
+	r.add(re, 4, 10);
+	r.add(color1, 4, 20);
+	r.setVgap(2);
+	Scene rec= new Scene (r,400,300); //Scene 3
+	Stage srec = new Stage (); // stage 3 
+	srec.setScene(rec);
+	srec.setTitle("Rectangle");
+
+	//polygon draw 
+	GridPane poly = new GridPane ();
+	Button color2 = new Button ("Change color ");
+	poly.setAlignment(Pos.CENTER);
+	poly.add(po, 4, 10);
+	poly.add(color2, 4, 20);
+	poly.setVgap(2);
+	Scene polygon= new Scene (poly,400,300); //scene 4 
+	Stage spoly = new Stage (); // stage 4 
+	spoly.setScene(polygon);
+	spoly.setTitle("Polygon");
+
+	//Circle draw 
+	GridPane ci = new GridPane ();
+	Button color3 = new Button ("Change color ");
+	ci.setAlignment(Pos.CENTER);
+	ci.add(c, 4, 10);
+	ci.add(color3, 4, 20);
+	ci.setVgap(2);
+	Scene circle= new Scene (ci,400,300);  // Scene 5 
+	Stage scircle = new Stage (); // Stage 5 
+	scircle.setScene(circle);
+	scircle.setTitle("Circle");
+
+	//Draw Button for the Radio :
+	b.setOnAction(e->{
+	if(r1.isSelected()) {
+		 scircle.show();
+		 scircle.setX(ps.getX() - scircle.getWidth());
+		 scircle.setY(ps.getY());}
+	else if (r2.isSelected()) {
+		srec.show();
+		 srec.setX(ps.getX() + srec.getWidth());
+		 srec.setY(ps.getY());
+	}
+	else if (r3.isSelected()) {
+		sarc.show();
+		sarc.setY(ps.getY()- sarc.getHeight());
+		sarc.setX(ps.getX());
+	}
+	else {
+			spoly.show();
+			spoly.setY(ps.getY()+spoly.getHeight());
+			spoly.setX(ps.getX());
+	}
+
+		});
+	
+
+	//Draw button for the Checkbox 
+	b1.setOnAction(e->{
+		limit(number);
+		if(ch1.isSelected()  ) {
+			 scircle.show();
+			 scircle.setX(ps.getX() - scircle.getWidth());
+			 scircle.setY(ps.getY());
+			 }
+		if (ch2.isSelected()  ) {
+			srec.show();
+			 srec.setX(ps.getX() + srec.getWidth());
+			 srec.setY(ps.getY());
+		}
+		if (ch3.isSelected()  ) {
+			sarc.show();
+			sarc.setY(ps.getY()-sarc.getHeight());
+			sarc.setX(ps.getX());
+		}
+		if(ch4.isSelected() ) {
+				spoly.show();
+				spoly.setY(ps.getY()+spoly.getHeight());
+				spoly.setX(ps.getX());
+		}});
+	
+
+
+	color.setOnAction(e->{
+		arcd.setFill(Color.PINK);
+	});
+
+	color1.setOnAction(e->{
+		re.setFill(Color.BLUE);
+	});
+
+	color2.setOnAction(e->{
+		po.setFill(Color.GREEN);
+	});
+
+	color3.setOnAction(e->{
+		c.setFill(Color.GRAY);
+	});
+
+	//main Stage 
+	ps.setTitle("Show shapes");
+	ps.setScene(s1);
+	ps.show();
+					
+	}
+	//the alert function 
+	public void showAlert (String m) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Input validation");
+		alert.setContentText(m);
+		alert.setHeaderText(null);
+		alert.showAndWait();
+	}
+	
+	//the function to unselect the wrong 
+	
+	public void limit(int max) {
+		int i =0 ;
+		if(ch1.isSelected())i++;
+		if(ch2.isSelected())i++;
+		if(ch3.isSelected())i++;
+		if(ch4.isSelected())i++;
+		
+		
+		if(i>max) {
+			showAlert("You can only select "+max+" cheackboxes");
+			if(ch4.isSelected())ch4.setSelected(false);
+			if(ch3.isSelected())ch3.setSelected(false);
+			if(ch2.isSelected())ch2.setSelected(false);
+			if(ch1.isSelected())ch1.setSelected(false);
+
+		}
+	}
+	}
